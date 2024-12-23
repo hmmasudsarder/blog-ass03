@@ -1,0 +1,1 @@
+export const BlogSearchFields = ['title','content'];
