@@ -3,7 +3,7 @@ import AppError from "../../Error/AppError";
 import { User } from "./user.model";
 
 
-const blockUserByAdmin = async (id: string) => {
+const blockUserAdmin = async (id: string) => {
   const user = await User.findById(id);
   if (!user) {
     throw new AppError(StatusCodes.NOT_FOUND, 'user not found !');
@@ -24,5 +24,5 @@ const blockUserByAdmin = async (id: string) => {
 };
 
 export const userServices = {
-    blockUserByAdmin
+  blockUserAdmin
 };

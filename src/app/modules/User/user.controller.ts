@@ -6,12 +6,12 @@ import sendResponse from '../../utils/sendResponse';
 
 const blockUser = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
-  await userServices.blockUserByAdmin(userId);
+  await userServices.blockUserAdmin(userId);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'user blocked successfully!',
+    message: 'User blocked successfully!',
     data: '',
   });
 });
