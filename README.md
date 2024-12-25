@@ -1,7 +1,6 @@
-live URL https://blog-three-teal-74.vercel.app
 # 📲📲 Blog API - Assignment 3
 
-This project is a RESTful API built with **TypeScript**  **Express** to manage a  Blog Website Api. It uses **MongoDB** with Mongoose for data storage and retrieval.
+This project is a RESTful API built with **TypeScript** **Express** to manage a Blog Website Api. It uses **MongoDB** with Mongoose for data storage and retrieval.
 
 ---
 
@@ -10,15 +9,13 @@ This project is a RESTful API built with **TypeScript**  **Express** to manage a
 ### CRUD Operations for Crete Blog:
 
 - ➕ **Create new Blog**
-- 📋 **Get a list of all Blogs and  🔍 filtering or search specific name keywords**
+- 📋 **Get a list of all Blogs and 🔍 filtering or search specific name keywords**
 - ✏️ **Update a specific Blog by ID**
 - ❌ **Delete a Blog for Owen blog**
 
-
-
 ## 🚀 Getting Started
 
-This project requires **Node.js** and **npm** to be installed on your system.
+This project requires **Node.js** and **npm** to be installed on your system. use localy
 
 1. Clone this repository:
 
@@ -29,14 +26,13 @@ This project requires **Node.js** and **npm** to be installed on your system.
 2. Navigate to the project directory:becareful
 
    ```bash
-   cd Book-shop
+   cd blog-ass03
    ```
 
 3. Install dependencies:
 
    ```bash
    npm install
-
    ```
 
 4. Create a `.env` file in the root directory and configure the following variables:
@@ -44,7 +40,7 @@ This project requires **Node.js** and **npm** to be installed on your system.
    ```json
    PORT=5000
    DB_URI=<Your MongoDB Connection URI>
-  R O kiso lakbey Setey Assignment porey add korbo for copy past regaion
+   R O kiso lakbey Setey Assignment porey add korbo for copy past regaion
    ```
 
 ### ▶️ Running the API
@@ -67,12 +63,9 @@ The Book Shop API is deployed and live on Vercel, making it accessible for testi
 **Base URL:**  
 🌍 [https://blog-three-teal-74.vercel.app/](https://blog-three-teal-74.vercel.app/)
 
-
-```
-
 Response:
 
-```javascript
+```
 {
     Hello Verson2.0 In Bangladesh!
 }
@@ -84,7 +77,94 @@ The API uses standard HTTP methods (`GET`, `POST`, `PATCH`, `DELETE`) for CRUD o
 
 ---
 
-## 📘 Inventory
+### ➕ Create a User
+
+#### Authentication
+
+- **Endpoint**: `/api/auth/register`
+- **Method**:
+  Register User
+
+Description: Registers a new user with the platform. It validates user data and saves it to the database.
+
+Request Body:
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+```
+
+Response:
+
+```
+Success (201):
+{
+"success": true,
+"message": "User registered successfully",
+"statusCode": 201,
+"data": {
+"_id": "string",
+"name": "string",
+"email": "string"
+}
+}
+Failure (400):
+{
+"success": false,
+"message": "Validation error",
+"statusCode": 400,
+"error": { "details" },
+"stack": "error stack"
+}
+```
+
+- **Endpoint**: `/api/auth/login`
+- **Method**:
+  Login User
+  POST
+
+Description: Authenticates a user with their email and password and generates a JWT token.
+
+**Request Body**:
+
+```
+
+{
+"email": "john@example.com",
+"password": "securepassword"
+}
+```
+
+**Response**:
+
+- Success (200):
+
+```
+{
+"success": true,
+"message": "Login successful",
+"statusCode": 200,
+"data": {"token": "string"}
+
+}
+```
+
+- Failure (401):
+
+```
+{
+"success": false,
+"message": "Invalid credentials",
+"statusCode": 401,
+"error": { "details" },
+"stack": "error stack"
+}
+```
+
+## 📲 crud Blog Oprations
 
 ### ➕ Create a Blog
 
@@ -116,9 +196,6 @@ The API uses standard HTTP methods (`GET`, `POST`, `PATCH`, `DELETE`) for CRUD o
 }
 ```
 
-
-
-
 ### ✏️ Update a Blog
 
 PATCH /api/blogs/:id
@@ -130,32 +207,34 @@ Request Header:Authorization: Bearer <token>
 Request Body:
 
 {
-  "title": "Updated Blog Title",
-  "content": "Updated content."
+"title": "Updated Blog Title",
+"content": "Updated content."
 }
 Response:
 
 Success (200):
 {
-  "success": true,
-  "message": "Blog updated successfully",
-  "statusCode": 200,
-  "data": {
-    "_id": "string",
-    "title": "string",
-    "content": "string",
-    "author": { "details" }
-  }
+"success": true,
+"message": "Blog updated successfully",
+"statusCode": 200,
+"data": {
+"\_id": "string",
+"title": "string",
+"content": "string",
+"author": { "details" }
+}
 }
 
 ### ❌ Delete a Blog
+
 DELETE /api/blogs/:id
 
 Description: Allows a logged-in user to delete their own blog by its ID.
 
 Request Header:Authorization: Bearer <token>
 
-**Response:**
+- **Response:**
+
 ```json
 Success (200):
 {
@@ -164,9 +243,8 @@ Success (200):
   "statusCode": 200
 }
 ```
+
 ### 📋 Get All Books
-
-
 
 GET /api/blogs
 
@@ -183,18 +261,18 @@ Example Request URL:
 - **Endpoint:** `/api/products`
 - **Method:** `GET`
 
-
 ```
 /api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&filter=60b8f42f9c2a3c9b7cbd4f18
 In this example:
 ```
+
 search=technology: Filters blogs containing the term "technology" in the title or content.
 sortBy=createdAt: Sorts the blogs by the createdAt field.
 sortOrder=desc: Sorts in descending order (newest blogs first).
 filter=60b8f42f9c2a3c9b7cbd4f18: Filters blogs authored by the user with the given authorId.
 
-
 **Response:**
+
 ```json
 Success (200):
 {
