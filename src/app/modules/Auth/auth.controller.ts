@@ -17,7 +17,6 @@ const userRegistration = catchAsync(async (req: Request, res: Response) => {
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  console.log(result)
   const { accessToken, role } = result;
 
   sendResponse(res, {
