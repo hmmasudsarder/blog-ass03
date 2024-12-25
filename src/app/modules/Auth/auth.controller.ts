@@ -10,19 +10,20 @@ const userRegistration = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'User Registration successfully!',
+    message: 'Create User successfully!',
     data: result,
   });
 });
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  const { accessToken } = result;
+  console.log(result)
+  const { accessToken, role } = result;
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'User is logged in successfully!',
+    message: `${role} is login successfully!`,
     data: {
       accessToken,
     },
