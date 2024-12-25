@@ -111,7 +111,11 @@ Success (201):
 "email": "string"
 }
 }
+```
+
 Failure (400):
+
+```
 {
 "success": false,
 "message": "Validation error",
@@ -131,10 +135,9 @@ Description: Authenticates a user with their email and password and generates a 
 **Request Body**:
 
 ```
-
 {
-"email": "john@example.com",
-"password": "securepassword"
+  "email": "john@example.com",
+  "password": "securepassword"
 }
 ```
 
