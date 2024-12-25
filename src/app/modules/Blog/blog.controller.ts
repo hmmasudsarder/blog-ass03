@@ -7,9 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const createBlog = catchAsync(async (req: Request, res: Response) => {
   const { title, content } = req.body;
-  const userId = req.user?.userId; // from the JWT token set by auth middleware
-  // console.log(title, content);
-  // console.log('id asbe', userId);
+  const userId = req.user?.userId; // get user id from token
   const result = await BlogServices.createBlogIntoDb({
     title,
     content,
@@ -19,19 +17,17 @@ const createBlog = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'blog post successfully',
+    message: 'Blog post successfully',
     data: result,
   });
 });
 
 const getAllBlogs = catchAsync(async (req, res) => {
-  // console.log(req.query);
   const result = await BlogServices.getAllBlogs(req.query);
-
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'blog are retrieved successfully',
+    message: 'Blog are retrieved successfully',
     data: result,
   });
 });
@@ -40,8 +36,7 @@ const updateBlogController = catchAsync(async (req: Request, res: Response) => {
   const blogId = req.params.id;
   const { title, content } = req.body;
   const userId = req.user?.userId;
-
-  const updatedBlog = await BlogServices.updateBlogById(
+  const updatedBlog= await BlogServices.updateBlogById(
     blogId,
     { title, content },
     userId,
@@ -50,7 +45,7 @@ const updateBlogController = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'blog updated successfully!',
+    message: 'Blog updated successfully!',
     data: updatedBlog,
   });
 });
@@ -58,30 +53,28 @@ const updateBlogController = catchAsync(async (req: Request, res: Response) => {
 const deleteBlogById = catchAsync(async (req: Request, res: Response) => {
   const blogId = req.params.id;
   const userId = req.user?.userId;
-
   const result = await BlogServices.deleteBlogById(blogId, userId);
-
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'blog deleted  successfully!',
+    message: 'Blog deleted  successfully!',
     data: result,
   });
 });
+
+// delete blog by admin user route use it
 const deleteBlogByAdmin = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-
   const result = await BlogServices.deleteBlogByAdmin(id);
-
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'blog deleted successfully!',
+    message: 'Blog deleted successfully!',
     data: result,
   });
 });
 
-export const BlogControllers = {
+export const BlogController = {
   createBlog,
   getAllBlogs,
   updateBlogController,

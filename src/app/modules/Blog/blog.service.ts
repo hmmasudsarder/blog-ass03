@@ -19,7 +19,6 @@ const createBlogIntoDb = async (payload: Partial<TBlog>) => {
 
 // get all Blog from db
 const getAllBlogs = async (query: Record<string, unknown>) => {
-    console.log(query);
     const blogQuery = new QueryBuilder(
         BlogModel.find().populate('author', "name email"),
         query,
@@ -30,7 +29,7 @@ const getAllBlogs = async (query: Record<string, unknown>) => {
         .fields();
 
     const result = await blogQuery.modelQuery.exec();
-    console.log('Query Result:', result);
+    // console.log('Query Result:', result);
 
     return result;
 };
@@ -44,14 +43,14 @@ const updateBlogById = async (
     const blog = await BlogModel.findById(blogId);
 
     if (!blog) {
-        throw new AppError(StatusCodes.NOT_FOUND, 'blog not found!');
+        throw new AppError(StatusCodes.NOT_FOUND, 'Blog not found!');
     }
 
     // Check if the user is the author of the blog
     if (blog.author.toString() !== userId) {
         throw new AppError(
             StatusCodes.FORBIDDEN,
-            'you can only update your own blog!',
+            'You can only update your own blog!',
         );
     }
 
@@ -84,7 +83,7 @@ const deleteBlogById = async (blogId: string, userId: string) => {
     return { message: 'Blog deleted successfully' };
 };
 
-// : Promise<void>
+
 const deleteBlogByAdmin = async (id: string) => {
     const result = await BlogModel.findOneAndDelete({ _id: id });
 

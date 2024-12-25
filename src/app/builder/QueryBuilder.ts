@@ -10,11 +10,7 @@ class QueryBuilder<T> {
 
   // //   search method
   search(searchableFields: string[]) {
-    // const searchTerm = this?.query?.searchTerm;
     const searchTerm = this?.query?.search || this?.query?.searchTerm;
-    // console.log("thiss",this.query);
-    // console.log("search term:", searchTerm); 
-    // console.log("searchable fields:", searchableFields); 
     if (searchTerm) {
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
@@ -31,21 +27,21 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj = { ...this.query };
-    // console.log("constructed query object:", queryObj);
+
 
     // Filtering
-    const excludeFields = ['filter','search','sortBy','sortOrder','author','searchTerm', 'sort', 'limit', 'page', 'fields']; 
+    const excludeFields = ['filter', 'search', 'sortBy', 'sortOrder', 'author', 'searchTerm', 'sort', 'limit', 'page', 'fields'];
     excludeFields.forEach((el) => delete queryObj[el]);
 
     if (this.query.author) {
       queryObj['author'] = this.query.filter;
-      
+
     }
     // console.log("final query object filter mapping filter:", queryObj)
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
 
     return this;
-  }   
+  }
 
   //   sort method  sort by specific fields and order
   sort() {
