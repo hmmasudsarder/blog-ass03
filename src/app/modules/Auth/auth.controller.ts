@@ -2,9 +2,8 @@ import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AuthServices } from './auth.service';
-import { Request, Response } from 'express';
 
-const userRegistration = catchAsync(async (req: Request, res: Response) => {
+const userRegistration = catchAsync(async (req, res) => {
   const result = await AuthServices.registerUser(req.body);
 
   sendResponse(res, {
