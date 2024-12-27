@@ -5,25 +5,29 @@ import { AuthServices } from './auth.service';
 
 const userRegistration = catchAsync(async (req, res) => {
   const result = await AuthServices.registerUser(req.body);
+  const { _id: id, name,
+    email } = result;
 
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: StatusCodes.CREATED,
     success: true,
-    message: 'Create User successfully!',
-    data: result,
+    message: 'User registered successfully',
+    data: {
+      id, name, email
+    },
   });
 });
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginUser(req.body);
-  const { accessToken, role } = result;
+  const { token } = result;
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: `${role} is login successfully!`,
+    message: `Login successful`,
     data: {
-      accessToken,
+      token,
     },
   });
 });

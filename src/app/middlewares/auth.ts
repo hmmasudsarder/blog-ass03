@@ -13,7 +13,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       ? req.headers.authorization.split(' ')[1]
       : req.headers.authorization;
 
-
+    
     // checking if the token is missing
     if (!token) {
       throw new AppError(StatusCodes.UNAUTHORIZED, 'You are not authorized!');
@@ -28,6 +28,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
     // checking if the user is exist
     const user = await User.isUserExistsById(userId);
+    
 
     if (!user) {
       throw new AppError(StatusCodes.NOT_FOUND, 'This User is not found !');
@@ -41,7 +42,8 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     // Check if the user is blocked
-    if (user.isBlocked) {
+    const isBlocked = user?.isBlocked;
+    if (isBlocked) {
       throw new AppError(StatusCodes.FORBIDDEN, 'This User is blocked!');
     }
 
@@ -52,7 +54,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       );
     }
 
-    
+
     // req.user = decoded as JwtPayload;
     req.user = {
       userId,

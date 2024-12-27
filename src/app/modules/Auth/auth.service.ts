@@ -10,7 +10,7 @@ const registerUser = async (payload: TUser) => {
   const useresist = await User.findOne({ email: payload.email });
   if (useresist) {
     throw new AppError(
-      StatusCodes.CONFLICT,
+      StatusCodes.BAD_REQUEST,
       `${useresist.email} Already Exists`,
     );
   }
@@ -24,7 +24,7 @@ const loginUser = async (payload: TLoginUser) => {
   const user = await User.findOne({ email: payload.email });
 
   if (!user) {
-    throw new AppError(StatusCodes.NOT_FOUND, 'This user is not found !');
+    throw new AppError(StatusCodes.UNAUTHORIZED, 'This user is not found !');
   }
   // checking if the user is already deleted
 
@@ -51,15 +51,14 @@ const loginUser = async (payload: TLoginUser) => {
     role: user.role,
   };
 
-  const accessToken = createToken(
+  const token = createToken(
     jwtPayload,
     config.jwt_secret as string,
     config.jwt_access_expire_time as string,
   );
 
   return {
-    accessToken,
-    role: user.role
+    token,
   };
 };
 

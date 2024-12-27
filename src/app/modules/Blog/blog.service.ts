@@ -80,7 +80,7 @@ const deleteBlogById = async (blogId: string, userId: string) => {
         );
     }
 
-    return { message: 'Blog deleted successfully' };
+    // return { message: 'Blog deleted successfully' };
 };
 
 
@@ -94,7 +94,7 @@ const deleteBlogByAdmin = async (id: string) => {
         );
     }
 
-    return { message: 'blog deleted successfully' };
+    // return { message: 'blog deleted successfully' };
 };
 
 export const BlogServices = {
